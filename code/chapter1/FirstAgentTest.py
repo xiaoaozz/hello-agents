@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+
 AGENT_SYSTEM_PROMPT = """
 你是一个智能旅行助手。你的任务是分析用户的请求，并使用可用工具一步步地解决问题。
 
@@ -77,7 +79,7 @@ def get_attraction(city: str, weather: str) -> str:
     tavily = TavilyClient(api_key=api_key)
     
     # 3. 构造一个精确的查询
-    query = f"'{city}' 在'{weather}'天气下最值得去的旅游景点推荐及理由"
+    query = f"{city} 在 {weather} 天气下最值得去的旅游景点推荐及理由"
     
     try:
         # 4. 调用API，include_answer=True会返回一个综合性的回答
@@ -142,10 +144,10 @@ import re
 
 # --- 1. 配置LLM客户端 ---
 # 请根据您使用的服务，将这里替换成对应的凭证和地址
-API_KEY = "YOUR_API_KEY"
-BASE_URL = "YOUR_BASE_URL"
-MODEL_ID = "YOUR_MODEL_ID"
-os.environ['TAVILY_API_KEY'] = "YOUR_TAVILY_API_KEY"
+load_dotenv()
+API_KEY = os.getenv("OPENAI_API_KEY")
+BASE_URL = os.getenv("OPENAI_BASE_URL")
+MODEL_ID = os.getenv("MODEL_NAME")
 
 llm = OpenAICompatibleClient(
     model=MODEL_ID,
